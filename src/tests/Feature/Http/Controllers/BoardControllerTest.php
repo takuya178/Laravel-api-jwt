@@ -3,9 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Board;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class BoardControllerTest extends TestCase
@@ -32,5 +30,20 @@ class BoardControllerTest extends TestCase
                 'title' => 'テストタイトル',
                 'text' => 'テストテキスト'
             ]);
+    }
+
+    public function testStore()
+    {
+        $list = Board::factory()->make();
+        $data = [
+                'title' => $list->title,
+                'text' => $list->text,
+        ];
+
+        $response = $this->postJson(route('board.store'), $data)
+            ->assertOk()
+            ->json();
+
+        $this->assertEquals($data, $response);
     }
 }

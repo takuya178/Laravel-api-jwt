@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/boards', [BoardController::class, 'index'])
     ->name('board.index');
+
+Route::post('/board', [BoardController::class, 'store'])
+    ->name('board.store');
