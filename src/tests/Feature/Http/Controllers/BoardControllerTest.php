@@ -46,4 +46,20 @@ class BoardControllerTest extends TestCase
 
         $this->assertEquals($data, $response);
     }
+
+    public function testShow()
+    {
+        $board = Board::factory()->create([
+            'title' => 'テストタイトル',
+            'text' => 'テストテキスト'
+        ]);
+
+        $response = $this->getJson(route('board.show', $board->id));
+
+        $response->assertOk()
+            ->assertJsonFragment([
+                'title' => 'テストタイトル',
+                'text' => 'テストテキスト'
+            ]);
+    }
 }

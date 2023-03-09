@@ -18,4 +18,22 @@ class BoardController extends Controller
         Board::create($request->all());
         return response()->json($request->validated());
     }
+
+    public function show($id)
+    {
+        $board = Board::findOrFail($id);
+        return new BoardResource($board);
+    }
+
+    public function update(BoardRequest $request, $id)
+    {
+        $board = Board::find($id);
+
+        if (!$board) {
+            return response()->json(['message' => '指定された掲示板は見つかりませんでした。'], 404);
+        }
+
+        $board->update($request->validated());
+        return response()->json(['message' => '掲示板の更新が成功しました。']);
+    }
 }
