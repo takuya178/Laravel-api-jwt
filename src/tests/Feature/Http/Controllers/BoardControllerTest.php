@@ -62,4 +62,33 @@ class BoardControllerTest extends TestCase
                 'text' => 'テストテキスト'
             ]);
     }
+
+    public function testUpdate()
+    {
+        // テスト用の掲示板を作成
+        $board = Board::factory()->create([
+            'title' => 'テストタイトル',
+            'text' => 'テストテキスト'
+        ]);
+
+        // アップデート用のデータ
+        $data = [
+            'title' => 'アップデート後のタイトル',
+            'text' => 'アップデート後のテキスト'
+        ];
+
+        // APIリクエストを実行
+        $response = $this->putJson(route('board.update', ['id' => $board->id]), $data);
+
+        // レスポンスを検証
+        $response->assertOk()
+            ->assertJson(['message' => '掲示板の更新が成功しました。']);
+
+        // データベースのデータを検証
+        $this->assertDatabaseHas('boards', [
+            'id' => $board->id,
+            'title' => 'アップデート後のタイトル',
+            'text' => 'アップデート後のテキスト'
+        ]);
+    }
 }
