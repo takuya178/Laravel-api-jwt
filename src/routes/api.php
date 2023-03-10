@@ -27,5 +27,5 @@ Route::get('/boards/{id}', [BoardController::class, 'show'])
     ->name('board.show');
 Route::put('/boards/{id}', [BoardController::class, 'update'])
     ->name('board.update');
-Route::delete('/boards/{id}', [BoardController::class, 'delete'])
-    ->name('board.delete');
+Route::delete('/boards/{id}', [BoardController::class, 'destroy'])
+    ->name('board.destroy');

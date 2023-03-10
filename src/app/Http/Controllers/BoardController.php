@@ -36,4 +36,12 @@ class BoardController extends Controller
         $board->update($request->validated());
         return response()->json(['message' => '掲示板の更新が成功しました。']);
     }
+
+
+    public function destroy($id)
+    {
+        $board = Board::findOrFail($id);
+        $board->delete();
+        return response()->json(null, 204);
+    }
 }
