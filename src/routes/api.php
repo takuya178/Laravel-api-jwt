@@ -32,4 +32,14 @@ Route::put('/boards/{id}', [BoardController::class, 'update'])
 Route::delete('/boards/{id}', [BoardController::class, 'destroy'])
     ->name('board.destroy');
 
-Route::post('auth/register', [AuthController::class, 'register']);
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('me', [AuthController::class, 'me']);
+});
+
+//Route::post('auth/register', [AuthController::class, 'register']);

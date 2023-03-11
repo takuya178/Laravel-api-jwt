@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -24,15 +23,6 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($user) {
-            $user->password = Hash::make($user->password, ['rounds' => 12, 'algorithm' => 'sha256']);
-        });
-    }
 
     /**
      * The attributes that should be hidden for serialization.
