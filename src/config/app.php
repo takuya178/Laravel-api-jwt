@@ -164,6 +164,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Illuminate\Hashing\HashServiceProvider::class,
+        App\Providers\SHA256ServiceProvider::class,
         /*
          * Package Service Providers...
          */

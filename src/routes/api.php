@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,5 @@ Route::put('/boards/{id}', [BoardController::class, 'update'])
     ->name('board.update');
 Route::delete('/boards/{id}', [BoardController::class, 'destroy'])
     ->name('board.destroy');
+
+Route::post('auth/register', [AuthController::class, 'register']);
