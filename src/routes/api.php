@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Owner\OwnerAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,12 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
 });
 
-//Route::post('auth/register', [AuthController::class, 'register']);
+Route::group(['prefix' => 'owner'], function ($router) {
+    Route::post('/login', [OwnerAuthController::class, 'login']);
+    Route::post('/register', [OwnerAuthController::class, 'register']);
+});
+
+Route::group(['middleware' => ['jwt.role:owner', 'jwt.auth'], 'prefix' => 'owner'], function ($router) {
+    Route::post('/logout', [OwnerAuthController::class, 'logout']);
+    Route::get('/user-profile', [OwnerAuthController::class, 'userProfile']);
+});
