@@ -18,7 +18,7 @@ class AuthController extends Controller
     {
         $user = new User;
         $user->fill($request->all());
-        $user->password=bcrypt($request->password);
+        $user->password = bcrypt($request->password);
         $user->save();
         return $this->publishToken($request);
     }
